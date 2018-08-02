@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bad+Script|Paprika|Rock+Salt" rel="stylesheet">
 
     <title>RPS-Multiplayer</title>
 
@@ -28,88 +28,118 @@
 
     <div class="container-fluid">
 
+        <div id="myModal" class="modal">
 
-
-
-
-
-            <div id="myModal" class="modal">
-
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2>Enter your name below </h2>
-                        <span class="close">&times;</span>
-                    </div>
-                    <div class="modal-body">
-                        <label for="usr"></label>
-                        <input type="text" class="form-control" id="usr">
-                    </div>
-                    <div class="modal-footer">
-                        <h3>Pro tip: Rock beats scissors, scissors beats paper and paper beats rock.</h3>
-                    </div>
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Enter your name below </h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <label for="usr"></label>
+                    <input type="text" class="form-control" id="usr">
+                    <button class="submit">Submit</button>
+                </div>
+                <div class="modal-footer">
+                    <h3>Pro tip: Rock beats scissors, scissors beats paper and paper beats rock.</h3>
                 </div>
             </div>
-
-
         </div>
 
-        <div class="row">
+        <div class="rps-game">
 
-            <div class="col-lg-12">
+            <div class="row">
 
-                <h1 class="display">Rock Paper Scissors Multiplayer</h1>
+                <div class="col-lg-12">
+
+                    <h1 class="display">
+                        <span class="rock"> Rock </span>
+                        <span class="paper"> Paper </span>
+                        <span class="scissor">Scissors</span> Multiplayer</h1>
+
+                </div>
+
+            </div>
+
+            <div class="main-game">
+
+                <div class="row ">
+
+                    <div class="col-lg-12">
+
+                        <div class="updated-users">There are currently
+                            <span id="connected-viewers"></span> online.</div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+
+                        <div class="jumbotron jumbotron-fluid">
+                            <div class="container your-move">
+                                <h1 class="display-4 text-center">Your Choice</h1>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <div class="jumbotron jumbotron-fluid">
+                            <div class="container opponent-move">
+                                <h1 class="display-4 text-center">Your Opponent's Choice</h1>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+
+                    </div>
+
+                    <div class="col-lg-6">
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                            <h1>Select your move below:</h1>
+                    </div>
+                </div>
+
+                <div class="row button-choices">
+
+                    <div class="col-lg-12">
+
+                        <button class="rock center picCor">
+                            <img class="center" src="assets/images/rock.png" width="150px">
+                        </button>
+
+                        <button class="paper center">
+                            <img class="center" src="assets/images/paper.png" width="150px">
+                        </button>
+
+                        <button class="scissor center picCor">
+                            <img class="center" src="assets/images/scissor.png" width="150px">
+                        </button>
+
+                    </div>
+                </div>
 
             </div>
 
         </div>
-
-        <div class="row">
-
-            <div class="col-lg-12">
-
-                <div class="updated-users">There are currently
-                    <span id="connected-viewers"></span> users online.</div>
-
-            </div>
-
-        </div>
-
-        <div class="row">
-
-            <div class="col-lg-6">
-
-            </div>
-
-            <div class="col-lg-6">
-
-            </div>
-
-        </div>
-
-        <div class="row">
-
-            <div class="col-lg-4">
-                <button class="rock">
-                    <img src="assets/images/rock.png">
-                </button>
-            </div>
-
-            <div class="col-lg-4">
-                <button class="paper">
-                    <img src="assets/images/paper.png">
-                </button>
-
-            </div>
-
-            <div class="col-lg-4">
-                <button class="scissor">
-                    <img src="assets/images/scissor.png">
-                </button>
-            </div>
-        </div>
-
-
 
     </div>
 

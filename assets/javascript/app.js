@@ -39,7 +39,11 @@ connectionsRef.on("value", function (snap) {
 
     // Display the viewer count in the html.
     // The number of online users is the number of children in the connections list.
-    $("#connected-viewers").text(snap.numChildren());
+    if (snap.numChildren() > 1) {
+        $("#connected-viewers").text(snap.numChildren() + " users");
+    } else {
+    $("#connected-viewers").text(snap.numChildren() + " user");
+    }
 });
 
 // Get the modal
@@ -51,15 +55,30 @@ var btn = $("#myBtn");
 // Get the <span> element that closes the modal
 var span = $(".close");
 
+var submit = $(".submit"); 
+
+var game = $(".main-game"); 
+
+var rock = $(".rock");
+
+var paper = $(".paper"); 
+
+var scissor = $(".scissor");
+
+var yourMove = $(".your-move");
+
+var oppMove = $(".opponent-move");
+
 // When the user clicks on the button, open the modal 
 $(document).ready(function () {
-    $("#myModal").show(); 
-})
+    $(modal).show(); 
+});
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
+$(span).on("click", function() {
+    $(modal).hide(); 
+    $(game).fadeIn("slow"); 
+});
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -67,3 +86,32 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+$(submit).on("click", function() {
+    $(modal).hide(); 
+    var nameValue = $("#usr").val(); 
+    console.log(nameValue); 
+    $(game).fadeIn("slow");  
+})
+
+$(modal).keypress(function (e) {
+
+    if (e.which == 13) {
+        var nameValue = $("#usr").val(); 
+        console.log(nameValue); 
+        $(game).fadeIn("slow");  
+        $(modal).hide(); 
+    }
+});
+
+$(rock).on("click", function () {
+    $(rock).clone().appendTo(yourMove).css({"margin-left" : "35%"}); 
+});
+
+$(paper).on("click", function () {
+    $(paper).clone().appendTo(yourMove).css({"margin-left" : "35%"}); 
+});
+
+$(scissor).on("click", function () {
+    $(scissor).clone().appendTo(yourMove).css({"margin-left" : "35%"}); 
+});
