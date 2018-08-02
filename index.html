@@ -20,15 +20,56 @@
 
     <title>RPS-Multiplayer</title>
 
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+
 </head>
 
 <body>
 
     <div class="container-fluid">
 
+
+
+
+
+
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Enter your name below </h2>
+                        <span class="close">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <label for="usr"></label>
+                        <input type="text" class="form-control" id="usr">
+                    </div>
+                    <div class="modal-footer">
+                        <h3>Pro tip: Rock beats scissors, scissors beats paper and paper beats rock.</h3>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
         <div class="row">
 
             <div class="col-lg-12">
+
+                <h1 class="display">Rock Paper Scissors Multiplayer</h1>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="updated-users">There are currently
+                    <span id="connected-viewers"></span> users online.</div>
 
             </div>
 
@@ -41,9 +82,31 @@
             </div>
 
             <div class="col-lg-6">
-                
+
             </div>
 
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4">
+                <button class="rock">
+                    <img src="assets/images/rock.png">
+                </button>
+            </div>
+
+            <div class="col-lg-4">
+                <button class="paper">
+                    <img src="assets/images/paper.png">
+                </button>
+
+            </div>
+
+            <div class="col-lg-4">
+                <button class="scissor">
+                    <img src="assets/images/scissor.png">
+                </button>
+            </div>
         </div>
 
 
