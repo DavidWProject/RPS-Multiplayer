@@ -59,16 +59,27 @@
 
             <div class="main-game">
 
-                <div class="row ">
+                <div class="row">
 
                     <div class="col-lg-12">
+
+                        <div class="row">
 
                         <div class="updated-users">There are currently
                             <span id="connected-viewers"></span> online.</div>
 
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                    <div id="swap-zone"></div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div id="swap-zone"></div>
+                    
 
                 </div>
 
@@ -93,9 +104,11 @@
                                 <h3 class="text-center">Your Choice</h3>
                                 <div id="player1-chosen"></div>
                             </div>
-                            <span id="player1-wins"></span>
-                            <span id="player1-losses"></span>
-                            <div id="current-turn"></div>
+                            <div class="resultscore">
+                                <span id="player1-wins"></span>
+                                <span id="player1-losses"></span>
+                                <div id="current-turn"></div>
+                            </div>
                         </div>
 
                     </div>
@@ -107,9 +120,11 @@
                                 <h3 class="text-center">Your Opponent's Choice</h3>
                                 <div id="player2-chosen"></div>
                             </div>
-                            <span id="player2-wins"></span>
-                            <span id="player2-losses"></span>
-                            <div id="current-turn1"></div>
+                            <div class="resultscore">
+                                <span id="player2-wins"></span>
+                                <span id="player2-losses"></span>
+                                <div id="current-turn1"></div>
+                            </div>
                         </div>
 
                     </div>
@@ -120,7 +135,7 @@
 
                     <div class="col-lg-12">
 
-                        <div id="result" width="100%">
+                        <div id="result">
 
                         </div>
 
