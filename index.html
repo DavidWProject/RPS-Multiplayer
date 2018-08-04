@@ -11,16 +11,11 @@
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bad+Script|Paprika|Rock+Salt" rel="stylesheet">
 
     <title>RPS-Multiplayer</title>
-
-    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
 
 </head>
 
@@ -54,9 +49,9 @@
                 <div class="col-lg-12">
 
                     <h1 class="display">
-                        <span class="rock"> Rock </span>
-                        <span class="paper"> Paper </span>
-                        <span class="scissor">Scissors</span> Multiplayer</h1>
+                        <span class="rock1"> Rock </span>
+                        <span class="paper1"> Paper </span>
+                        <span class="scissor1">Scissors</span> Multiplayer</h1>
 
                 </div>
 
@@ -78,11 +73,26 @@
                 <div class="row">
 
                     <div class="col-lg-6">
+                        <h1 class="text-center player1" id="player1-name">Player 1</h1>
+                        
+                    </div>
+
+                    <div class="col-lg-6">
+                        <h1 class="text-center player2" id="player2-name">Player 2</h1>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
 
                         <div class="jumbotron jumbotron-fluid">
                             <div class="container your-move">
-                                <h1 class="display-4 text-center">Your Choice</h1>
+                                <h3 class="text-center">Your Choice</h3>
                             </div>
+                            <span id="player1-wins"></span>
+                            <span id="player1-losses"></span>
+                            <div id="current-turn"></div>
                         </div>
 
                     </div>
@@ -91,8 +101,11 @@
 
                         <div class="jumbotron jumbotron-fluid">
                             <div class="container opponent-move">
-                                <h1 class="display-4 text-center">Your Opponent's Choice</h1>
+                                <h3 class="text-center">Your Opponent's Choice</h3>
                             </div>
+                            <span id="player2-wins"></span>
+                            <span id="player2-losses"></span>
+                            <div id="current-turn"></div>
                         </div>
 
                     </div>
@@ -114,7 +127,7 @@
                 <div class="row">
 
                     <div class="col-lg-12">
-                            <h1>Select your move below:</h1>
+                        <h1>Select your move below:</h1>
                     </div>
                 </div>
 
@@ -122,17 +135,56 @@
 
                     <div class="col-lg-12">
 
-                        <button class="rock center picCor">
-                            <img class="center" src="assets/images/rock.png" width="150px">
+                        <button class="rock center picCor" value="rock">
+                            <img class="center rock-img" src="assets/images/rock.png" width="120px">
                         </button>
 
-                        <button class="paper center">
-                            <img class="center" src="assets/images/paper.png" width="150px">
+                        <button class="paper center picCor" value="paper">
+                            <img class="center paper-img" src="assets/images/paper.png" width="120px">
                         </button>
 
-                        <button class="scissor center picCor">
-                            <img class="center" src="assets/images/scissor.png" width="150px">
+                        <button class="scissor center picCor" value="scissor">
+                            <img class="center scissor-img" src="assets/images/scissor.png" width="120px">
                         </button>
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-1">
+
+                    </div>
+
+                    <div class="col-lg-10">
+
+                        <div class="row">
+
+                            <div class="col-lg-12 chat-input">
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-lg-12">
+
+                                <form class="form-inline">
+
+                                        <input type="text" id="inputchat" placeholder="Enter your text here">
+
+                                    <button type="submit" id="chatsubmit" >Submit</button>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-lg-1">
 
                     </div>
                 </div>
@@ -143,6 +195,11 @@
 
     </div>
 
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
     <script type="text/javascript" src="assets/javascript/app.js"></script>
 
 </body>

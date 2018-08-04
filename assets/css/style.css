@@ -1,59 +1,92 @@
 img {
-    background-color: white; 
+    background-color: white;
 }
 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    -webkit-animation-name: fadeIn; /* Fade in the background */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    -webkit-animation-name: fadeIn;
+    /* Fade in the background */
     -webkit-animation-duration: 0.4s;
     animation-name: fadeIn;
-    animation-duration: 0.4s; 
-    
+    animation-duration: 0.4s;
 }
 
 /* Modal Content/Box */
+
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
+    /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 80%;
+    /* Could be more or less, depending on screen size */
     -webkit-animation-name: slideIn;
     -webkit-animation-duration: 0.4s;
-    border: 10px solid orange; 
+    border: 10px solid orange;
 }
 
 /* Add Animation */
+
 @-webkit-keyframes slideIn {
-    from {bottom: -300px; opacity: 0} 
-    to {bottom: 0; opacity: 1}
+    from {
+        bottom: -300px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
 }
 
 @keyframes slideIn {
-    from {bottom: -300px; opacity: 0}
-    to {bottom: 0; opacity: 1}
+    from {
+        bottom: -300px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
 }
 
 @-webkit-keyframes fadeIn {
-    from {opacity: 0} 
-    to {opacity: 1}
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }
 
 @keyframes fadeIn {
-    from {opacity: 0} 
-    to {opacity: 1}
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }
 
 /* The Close Button */
+
 .close {
     color: #aaa;
     float: right;
@@ -61,42 +94,41 @@ img {
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
 
 .modal-footer {
-    padding: 4px 10px; 
+    padding: 4px 10px;
     background-color: #5cb85c;
     color: white;
-    margin: 15px; 
+    margin: 15px;
 }
 
 .rps-game {
-    font-family: 'Courier New', Courier, monospace; 
-    margin-bottom: 50px; 
+    font-family: 'Courier New', Courier, monospace;
+    margin-bottom: 50px;
 }
 
 .main-game {
-    display: none; 
-    margin: 5px; 
+    display: none;
+    margin: 5px;
 }
 
 .row {
-    margin-top: 10px 0px 10px 0px; 
+    margin-top: 10px 0px 10px 0px;
 }
 
 .display {
-    text-align: center; 
-    padding: 20px; 
-    border: 2px solid orange; 
-    border-radius: 20px; 
-    margin: 5px; 
-    background: rgba(0, 149, 255, 0.778); 
-    color: white; 
+    text-align: center;
+    padding: 20px;
+    border: 2px solid orange;
+    border-radius: 20px;
+    margin: 5px;
+    background: rgba(0, 149, 255, 0.778);
+    color: white;
 }
 
 html {
@@ -104,51 +136,71 @@ html {
 }
 
 .container-fluid {
-    background-color: lightblue; 
+    background-color: lightblue;
 }
 
-.rock {
+.rock1 {
     font-family: 'Rock Salt', cursive;
 }
 
-.paper {
+.paper1 {
     font-family: 'Paprika', cursive;
 }
 
-.scissor {
+.scissor1 {
     font-family: 'Bad Script', cursive;
 }
 
 .submit {
-    color: white; 
-    background-color: rgba(0, 149, 255, 0.778); 
-    border: 2px solid orange; 
-    padding: 10px; 
-    border-radius: 20px; 
-    margin-top: 10px; 
+    color: white;
+    background-color: rgba(0, 149, 255, 0.778);
+    border: 2px solid orange;
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 10px;
 }
 
 h2 {
-    color: rgba(0, 149, 255, 0.778); 
+    color: rgba(0, 149, 255, 0.778);
 }
 
 .center {
-    display: inline;
+    width: 120px;
+    height: 120px;
 }
 
-.button-choices button{
-    margin-left: auto; 
+.button-choices button {
+    margin-left: auto;
     margin-right: auto;
-    margin-top: 30px;  
-    width: 32%;  
-    display: inline-block; 
+    margin-top: 30px;
+    width: 32%;
+    display: inline-block;
 }
 
 .picCor {
-    height: 80%;
+    height: 90%;
+    background-color: white;
+
 }
 
 .jumbotron-fluid {
-    height: 400px; 
+    height: 300px;
+}
+
+.chat-input {
+    background-color: white;
+    height: 400px;
+    border: 2px solid grey;
+    margin: 30px 10px 30px 10px;
+}
+
+#chatsubmit {
+    color: white;
+    background-color: rgba(0, 149, 255, 0.778);
+    border: 2px solid orange;
+}
+
+#inputchat {
+    width: 90%;
 }
 
