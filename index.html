@@ -68,17 +68,19 @@
 
                     </div>
 
+                    <div id="swap-zone"></div>
+
                 </div>
 
                 <div class="row">
 
-                    <div class="col-lg-6">
-                        <h1 class="text-center player1" id="player1-name">Player 1</h1>
+                    <div class="col-lg-6 player1">
+                        <h1 class="text-center" id="player1-name">Player 1</h1>
                         
                     </div>
 
-                    <div class="col-lg-6">
-                        <h1 class="text-center player2" id="player2-name">Player 2</h1>
+                    <div class="col-lg-6 player2">
+                        <h1 class="text-center" id="player2-name">Player 2</h1>
                     </div>
                 </div>
 
@@ -89,6 +91,7 @@
                         <div class="jumbotron jumbotron-fluid">
                             <div class="container your-move">
                                 <h3 class="text-center">Your Choice</h3>
+                                <div id="player1-chosen"></div>
                             </div>
                             <span id="player1-wins"></span>
                             <span id="player1-losses"></span>
@@ -102,10 +105,11 @@
                         <div class="jumbotron jumbotron-fluid">
                             <div class="container opponent-move">
                                 <h3 class="text-center">Your Opponent's Choice</h3>
+                                <div id="player2-chosen"></div>
                             </div>
                             <span id="player2-wins"></span>
                             <span id="player2-losses"></span>
-                            <div id="current-turn"></div>
+                            <div id="current-turn1"></div>
                         </div>
 
                     </div>
@@ -114,11 +118,12 @@
 
                 <div class="row">
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
 
-                    </div>
+                        <div id="result" width="100%">
 
-                    <div class="col-lg-6">
+                        </div>
+
 
                     </div>
 

@@ -9,9 +9,6 @@ var config = {
 
 firebase.initializeApp(config);
 
-
-// console.log(firebase.initializeApp(config).name);
-
 // Create a variable to reference the database.
 var database = firebase.database();
 
@@ -24,10 +21,6 @@ var connectionsRef = database.ref("/connections");
 // '.info/connected' is a boolean value, true if the client is connected and false if they are not.
 var connectedRef = database.ref(".info/connected");
 
-var game = {
-    name: "",
-    score: 0,
-}
 
 // When the client's connection state changes...
 connectedRef.on("value", function (snap) {
@@ -103,6 +96,12 @@ var playersRef = database.ref("players");
 
 var currentTurnRef = database.ref("turn");
 
+var username = "Guest";
+
+if (!playersRef) {
+    chatData.set({});
+}
+
 // Function to capitalize usernames
 function capitalize(name) {
     return name.charAt(0).toUpperCase() + name.slice(1);
@@ -117,47 +116,52 @@ $(document).ready(function () {
 $(span).on("click", function () {
     $(modal).hide();
     $(game).fadeIn("slow");
+    getInGame();
+});
+
+$(submit).on("click", function () {
+    username = $("#usr").val();
+    $(game).fadeIn("slow");
+    $(modal).hide();
+    if (username !== "") {
+        playersRef.on("child_added", function (snapshot) {
+
+            if (currentPlayers === 1) {
+
+                // set turn to 1, which starts the game
+                currentTurnRef.set(1);
+            }
+        });
+        getInGame();
+    }
 
 });
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+$(modal).keypress(function (e) {
 
-enterPlayers();
-
-function enterPlayers() {
-    $(submit).on("click", function () {
-        var nameValue = $("#usr").val();
+    if (e.which == 13) {
+        username = $("#usr").val();
         $(game).fadeIn("slow");
         $(modal).hide();
-        if (nameValue !== "") {
-            $(player1).text(capitalize(nameValue));
+        if (username !== "") {
+            playersRef.on("child_added", function (snapshot) {
+
+                if (currentPlayers === 1) {
+
+                    // set turn to 1, which starts the game
+                    currentTurnRef.set(1);
+                }
+            });
             getInGame();
         }
+    }
+});
 
-    });
-
-    $(modal).keypress(function (e) {
-
-        if (e.which == 13) {
-            var nameValue = $("#usr").val();
-            $(game).fadeIn("slow");
-            $(modal).hide();
-            if (nameValue !== "") {
-                $(player1).text(capitalize(nameValue));
-                getInGame();
-            }
-        }
-    });
-
-};
 
 //Chat Listener
-$("#chatsubmit").click(function () {
+$("#chatsubmit").on("click", function () {
+
+    event.preventDefault();
 
     if ($("#inputchat").val() !== "") {
 
@@ -192,53 +196,21 @@ $("#chatsubmit").keypress(function (e) {
     }
 });
 
-$(document).on("click", ".center", function () {
-    if ($(this).val() === "rock") {
-        $(".rock-img").clone().appendTo(yourMove).css({
-            "margin-left": "38%",
-            "margin-right": "35%"
-        });
-        button.attr("disabled", true);
-    }
-    if ($(this).val() === "paper") {
-        $(".paper-img").clone().appendTo(yourMove).css({
-            "margin-left": "38%",
-            "margin-right": "35%"
-        });
-        button.attr("disabled", true);
-    }
-    if ($(this).val() === "scissor") {
-        $(".scissor-img").clone().appendTo(yourMove).css({
-            "margin-left": "38%",
-            "margin-right": "35%"
-        });
-        button.attr("disabled", true);
-    }
-
-    var clickChoice = $(this).val();
-
-    playerRef.child("choice").set(clickChoice);
-
-    currentTurnRef.transaction(function (turn) {
-        return turn + 1;
-    });
-});
-
 // Update chat on screen when new message detected - ordered by 'time' value
 chatData.orderByChild("time").on("child_added", function (snapshot) {
 
     // If idNum is 0, then its a disconnect message and displays accordingly
     // If not - its a user chat message
     if (snapshot.val().idNum === 0) {
-        $("#inputchat").append("<p class=player" + snapshot.val().idNum + "><span>" +
+        $(".chat-input").append("<p class=player" + snapshot.val().idNum + "><span>" +
             snapshot.val().name + "</span>: " + snapshot.val().message + "</p>");
     } else {
-        $("#inputchat").append("<p class=player" + snapshot.val().idNum + "><span>" +
+        $(".chat-input").append("<p class=player" + snapshot.val().idNum + "><span>" +
             snapshot.val().name + "</span>: " + snapshot.val().message + "</p>");
     }
 
     // Keeps div scrolled to bottom on each update.
-    $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+    $(".chat-input").scrollTop($(".chat-input")[0].scrollHeight);
 });
 
 // Tracks changes in key which contains player objects
@@ -293,17 +265,66 @@ currentTurnRef.on("value", function (snapshot) {
 
         // For turn 1
         if (currentTurn === 1) {
+            button.attr("disabled", true);
 
             // If its the current player's turn, tell them and show choices
             if (currentTurn === playerNum) {
+                $(yourMove).show();
                 $("#current-turn").html("<h2>It's Your Turn!</h2>");
+                button.attr("disabled", false);
+                $(document).on("click", ".center", function () {
+                    $(yourMove).empty();
+                    if ($(this).val() === "rock") {
+                        $(".rock-img").clone().appendTo(yourMove).css({
+                            "margin-left": "38%",
+                            "margin-right": "35%"
+                        })
+                        var clickChoice = $(this).val();
+              
+
+                        playerRef.child("choice").set(clickChoice);
+
+                        currentTurnRef.transaction(function (turn) {
+                            return turn + 1;
+                        })
+                    }
+                    if ($(this).val() === "paper") {
+                        $(".paper-img").clone().appendTo(yourMove).css({
+                            "margin-left": "38%",
+                            "margin-right": "35%"
+                        })
+                        var clickChoice = $(this).val();
+
+
+                        playerRef.child("choice").set(clickChoice);
+
+                        currentTurnRef.transaction(function (turn) {
+                            return turn + 1;
+                        })
+                    }
+                    if ($(this).val() === "scissor") {
+                        $(".scissor-img").clone().appendTo(yourMove).css({
+                            "margin-left": "38%",
+                            "margin-right": "35%"
+                        });
+                        var clickChoice = $(this).val();
+
+                        playerRef.child("choice").set(clickChoice);
+
+                        currentTurnRef.transaction(function (turn) {
+                            return turn + 1;
+                        })
+                    }
+
+                })
 
             } else {
-
+                $(yourMove).hide();
+                button.attr("disabled", true);
                 // If it isn't the current players turn, tells them they're waiting for player one
-                $("#current-turn").html("<h2>Waiting for " + playerOneData.name + " to choose.</h2>");
+                $("#current-turn1").html("<h2>Waiting for " + playerOneData.name + " to choose.</h2>");
             }
-
+            $(yourMove).hide();
             // Shows yellow border around active player
             $("#player1").css("border", "5px solid orange");
             $("#player2").css("border", "1px solid black");
@@ -311,10 +332,60 @@ currentTurnRef.on("value", function (snapshot) {
 
             // If its the current player's turn, tell them and show choices
             if (currentTurn === playerNum) {
-                $("#current-turn").html("<h2>It's Your Turn!</h2>");
+                $(yourMove).hide();
+                $(oppMove).show();
+                $("#current-turn1").html("<h2>It's Your Turn!</h2>");
+                button.attr("disabled", false);
+                $(document).on("click", ".center", function () {
+                    $(oppMove).empty();
+                    if ($(this).val() === "rock") {
+                        $(".rock-img").clone().appendTo(oppMove).css({
+                            "margin-left": "38%",
+                            "margin-right": "35%"
+                        });
+                        var clickChoice = $(this).val();
+      
+
+                        playerRef.child("choice").set(clickChoice);
+
+                        currentTurnRef.transaction(function (turn) {
+                            return turn + 1;
+                        });
+                    }
+                    if ($(this).val() === "paper") {
+                        $(".paper-img").clone().appendTo(oppMove).css({
+                            "margin-left": "38%",
+                            "margin-right": "35%"
+                        });
+                        var clickChoice = $(this).val();
+
+
+                        playerRef.child("choice").set(clickChoice);
+
+                        currentTurnRef.transaction(function (turn) {
+                            return turn + 1;
+                        });
+                    }
+                    if ($(this).val() === "scissor") {
+                        $(".scissor-img").clone().appendTo(oppMove).css({
+                            "margin-left": "38%",
+                            "margin-right": "35%"
+                        });
+                        var clickChoice = $(this).val();
+
+                        playerRef.child("choice").set(clickChoice);
+
+                        currentTurnRef.transaction(function (turn) {
+                            return turn + 1;
+                        });
+                    }
+
+                });
 
             } else {
-
+                $(oppMove).hide();
+                $(yourMove).show();
+                button.attr("disabled", true);
                 // If it isn't the current players turn, tells them they're waiting for player two
                 $("#current-turn").html("<h2>Waiting for " + playerTwoData.name + " to choose.</h2>");
 
@@ -323,43 +394,38 @@ currentTurnRef.on("value", function (snapshot) {
             // Shows yellow border around active player
             $("#player2").css("border", "5px solid orange");
             $("#player1").css("border", "1px solid black");
-        } else if (currentTurn === 3) {
+        }  else if (currentTurn === 3) {
 
             // Where the game win logic takes place then resets to turn 1
             gameLogic(playerOneData.choice, playerTwoData.choice);
-
+      
             // reveal both player choices
             $("#player1-chosen").text(playerOneData.choice);
             $("#player2-chosen").text(playerTwoData.choice);
-
+      
             //  reset after timeout
             var moveOn = function () {
-
-                $("#player1-chosen").empty();
-                $("#player2-chosen").empty();
-                $("#result").empty();
-
-                // check to make sure players didn't leave before timeout
-                if (playerOneExists && playerTwoExists) {
-                    currentTurnRef.set(1);
-                }
-            };
-
+                console.log("settimeout"); 
+      
+              $("#player1-chosen").empty();
+              $("#player2-chosen").empty();
+              $("#result").empty();
+      
+              // check to make sure players didn't leave before timeout
+              if (playerOneExists && playerTwoExists) {
+                currentTurnRef.set(1);
+              }
+    
+      
             //  show results for 2 seconds, then resets
-            setTimeout(moveOn, 2000);
-        } else {
-
-            //  if (playerNum) {
-            //    $("#player" + playerNum + " ul").empty();
-            //  }
-            $("#player1 ul").empty();
-            $("#player2 ul").empty();
-            $("#current-turn").html("<h2>Waiting for another player to join.</h2>");
-            $("#player2").css("border", "1px solid black");
-            $("#player1").css("border", "1px solid black");
+            
+          }
+          setTimeout(moveOn, 5000);
         }
     }
 });
+
+
 
 // When a player joins, checks to see if there are two players now. If yes, then it will start the game.
 playersRef.on("child_added", function (snapshot) {
@@ -426,12 +492,16 @@ function getInGame() {
 // Game logic - Tried to space this out and make it more readable. Displays who won, lost, or tie game in result div.
 // Increments wins or losses accordingly.
 function gameLogic(player1choice, player2choice) {
-
+    console.log("running");
     var playerOneWon = function () {
         $("#result").html("<h2>" + playerOneData.name + "</h2><h2>Wins!</h2>");
         if (playerNum === 1) {
             playersRef.child("1").child("wins").set(playerOneData.wins + 1);
             playersRef.child("2").child("losses").set(playerTwoData.losses + 1);
+            $("#result").append("<h2>You Win!</h2>"); 
+        }
+        if (playerNum ===2) {
+            $("#result").append("<h2>You Lose!</h2>"); 
         }
     };
 
@@ -440,6 +510,10 @@ function gameLogic(player1choice, player2choice) {
         if (playerNum === 2) {
             playersRef.child("2").child("wins").set(playerTwoData.wins + 1);
             playersRef.child("1").child("losses").set(playerOneData.losses + 1);
+            $("#result").append("<h2>You Win!</h2>"); 
+        }
+        if (playerNum === 1) {
+            $("#result").append("<h2>You Lose!</h2>"); 
         }
     };
 
@@ -447,23 +521,24 @@ function gameLogic(player1choice, player2choice) {
         $("#result").html("<h2>Tie Game!</h2>");
     };
 
-    if (player1choice === "Rock" && player2choice === "Rock") {
+    if (player1choice === "rock" && player2choice === "rock") {
         tie();
-    } else if (player1choice === "Paper" && player2choice === "Paper") {
+        console.log("tie");
+    } else if (player1choice === "paper" && player2choice === "paper") {
         tie();
-    } else if (player1choice === "Scissors" && player2choice === "Scissors") {
+    } else if (player1choice === "scissor" && player2choice === "scissor") {
         tie();
-    } else if (player1choice === "Rock" && player2choice === "Paper") {
+    } else if (player1choice === "rock" && player2choice === "paper") {
         playerTwoWon();
-    } else if (player1choice === "Rock" && player2choice === "Scissors") {
+    } else if (player1choice === "rock" && player2choice === "scissor") {
         playerOneWon();
-    } else if (player1choice === "Paper" && player2choice === "Rock") {
+    } else if (player1choice === "paper" && player2choice === "rock") {
         playerOneWon();
-    } else if (player1choice === "Paper" && player2choice === "Scissors") {
+    } else if (player1choice === "paper" && player2choice === "scissor") {
         playerTwoWon();
-    } else if (player1choice === "Scissors" && player2choice === "Rock") {
+    } else if (player1choice === "scissor" && player2choice === "rock") {
         playerTwoWon();
-    } else if (player1choice === "Scissors" && player2choice === "Paper") {
+    } else if (player1choice === "scissor" && player2choice === "paper") {
         playerOneWon();
     }
 };

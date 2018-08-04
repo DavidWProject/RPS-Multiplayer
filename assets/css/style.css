@@ -192,6 +192,7 @@ h2 {
     height: 400px;
     border: 2px solid grey;
     margin: 30px 10px 30px 10px;
+    overflow: scroll; 
 }
 
 #chatsubmit {
@@ -204,3 +205,7 @@ h2 {
     width: 90%;
 }
 
+#results {
+    text-align: center; 
+    font-size: 34px; 
+}
